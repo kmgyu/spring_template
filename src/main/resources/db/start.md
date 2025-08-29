@@ -18,12 +18,17 @@ FLUSH PRIVILEGES;
 
 이후 애플리케이션 설정(application.yml 또는 application.properties)에서 아래와 같이 세팅할 수 있습니다.
 
+> 주의 사항<br>
+> 보안에 관련된 환경변수는 application-secrets.properties와 같이 노출되지 않는 파일에 저장하세요.
+
 
 ```properties
-spring.datasource.url=jdbc:mysql://localhost:3307/template-board
+spring.jpa.hibernate.ddl-auto=create-drop
+spring.datasource.url=jdbc:mariadb://localhost:3307/template-board
 spring.datasource.username=template_user
 spring.datasource.password=template_pass
-spring.jpa.hibernate.ddl-auto=create-drop
+spring.datasource.driver-class-name=org.mariadb.jdbc.Driver
+spring.jpa.show-sql:true
 ```
 
 
