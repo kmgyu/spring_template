@@ -26,3 +26,5 @@ spring.datasource.password=template_pass
 spring.jpa.hibernate.ddl-auto=create-drop
 ```
 
+
+형상 관리를 위해 flyway를 사용합니다.
