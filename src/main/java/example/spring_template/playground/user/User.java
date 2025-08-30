@@ -1,5 +1,7 @@
 package example.spring_template.playground.user;
 
+import example.spring_template.playground.comment.Comment;
+import example.spring_template.playground.dashboard.Post;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -33,6 +35,18 @@ public class User {
 
     @Column(length = 100)
     private String email;
+
+    // 단일 권한 모델
+    @Enumerated(EnumType.STRING) // DB에 문자열로 저장
+    @Column(length = 20, nullable = false)
+    private UserRole role = UserRole.USER; // 기본값 USER
+
+//    다중 권한 모델
+//    @ElementCollection(fetch = FetchType.EAGER)
+//    @Enumerated(EnumType.STRING)
+//    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
+//    @Column(name = "role")
+//    private Set<UserRole> roles = new HashSet<>();
 
     // DB default CURRENT_TIMESTAMP 사용
     @Column(name = "created_at", nullable = false, updatable = false, insertable = false)
