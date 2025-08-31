@@ -1,6 +1,6 @@
 package example.spring_template.playground.user;
 
-import example.spring_template.playground.user.dto.SignupRequest;
+import example.spring_template.playground.user.dto.SignUpRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -15,17 +15,18 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
+@RequestMapping("/playground")
 public class SignupController {
     private final UserService userService;
 
     @GetMapping("/signup")
     public String signupForm(Model model) {
-        model.addAttribute("form", new SignupRequest("", "", ""));
+        model.addAttribute("form", new SignUpRequest("", "", ""));
         return "signup"; // templates/signup.html
     }
 
     @PostMapping("/signup")
-    public String signup(@Valid @ModelAttribute("form") SignupRequest form,
+    public String signup(@Valid @ModelAttribute("form") SignUpRequest form,
                          BindingResult bindingResult) {
         if (bindingResult.hasErrors()) return "signup";
 
@@ -53,7 +54,7 @@ public class SignupController {
         var auth = new UsernamePasswordAuthenticationToken(principal, null, authorities);
         SecurityContextHolder.getContext().setAuthentication(auth);
 
-        return "redirect:/";
+        return "redirect:/playground/login";
     }
 }
 
