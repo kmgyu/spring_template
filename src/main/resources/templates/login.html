@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>로그인</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<h1>로그인</h1>
+
+<!-- 스프링 시큐리티 기본 파라미터: ?error, ?logout -->
+<div th:if="${param.error}" style="color:#d33;">
+    아이디 또는 비밀번호가 올바르지 않습니다.
+</div>
+<div th:if="${param.logout}" style="color:#090;">
+    로그아웃되었습니다.
+</div>
+
+<form th:action="@{/login}" method="post">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+
+    <div>
+        <label for="username">아이디</label>
+        <!-- UsernamePasswordAuthenticationFilter 기본 파라미터 이름: username -->
+        <input id="username" name="username" type="text" placeholder="아이디" required/>
+    </div>
+
+    <div>
+        <label for="password">비밀번호</label>
+        <!-- 기본 파라미터 이름: password -->
+        <input id="password" name="password" type="password" placeholder="비밀번호" required/>
+    </div>
+
+    <!-- 필요시 remember-me 활성화 했다면
+    <div>
+      <label><input type="checkbox" name="remember-me"/> 로그인 유지</label>
+    </div>
+    -->
+
+    <button type="submit">로그인</button>
+</form>
+
+<p>
+    계정이 없나요?
+    <a th:href="@{/signup}">회원가입</a>
+</p>
+</body>
+</html>
