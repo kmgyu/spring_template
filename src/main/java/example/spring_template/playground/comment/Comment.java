@@ -4,6 +4,7 @@ import example.spring_template.playground.dashboard.Post;
 import example.spring_template.playground.user.User;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Type;
 
 import java.time.LocalDateTime;
 
@@ -31,8 +32,7 @@ public class Comment {
             foreignKey = @ForeignKey(name = "fk_comments_user"))
     private User author;
 
-    @Lob
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String content;
 
     @Column(name = "created_at", nullable = false, updatable = false, insertable = false)
