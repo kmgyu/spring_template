@@ -22,7 +22,7 @@ public class SignupController {
     @GetMapping("/signup")
     public String signupForm(Model model) {
         model.addAttribute("form", new SignUpRequest("", "", ""));
-        return "signup"; // templates/signup.html
+        return "auth/signup"; // templates/signup.html
     }
 
     @PostMapping("/signup")
@@ -35,7 +35,7 @@ public class SignupController {
             user = userService.register(form);
         } catch (IllegalArgumentException e) {
             bindingResult.reject("signup.error", e.getMessage());
-            return "signup";
+            return "auth/signup";
         }
 
         // 선택: 자동 로그인

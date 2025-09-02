@@ -19,6 +19,6 @@ public class LoginController {
             return "redirect:/";
         }
         // templates/login.html 렌더
-        return "login";
+        return "auth/login";
     }
 }
