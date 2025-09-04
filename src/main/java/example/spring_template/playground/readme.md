@@ -1,6 +1,6 @@
 # playground
 
-This package contains demo CRUD features for testing and experimentation.
+This package contains demo CRUD features and session authentication for testing and experimentation.
 
 ## Purpose
 - Demonstrate basic CRUD flow using Spring Boot 3.x.
