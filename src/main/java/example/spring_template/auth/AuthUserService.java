@@ -1,5 +1,7 @@
 package example.spring_template.auth;
 
+import example.spring_template.auth.dto.SignUpRequestDTO;
+import example.spring_template.auth.dto.SignUpResponseDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
@@ -18,27 +20,8 @@ public class AuthUserService {
     private final PasswordEncoder passwordEncoder;
 
 
-  // 회원가입 요청 DTO (필요 시 Bean Validation 추가 가능: @NotBlank, @Email 등)
-  @Value
-  public static class SignUpRequest {
-    String username;
-    String rawPassword;
-    String email;
-    AuthRole role;         // null이면 기본 USER
-    Integer roleLevel;     // 선택: level로도 받을 수 있게(둘 중 하나만 사용)
-  }
 
-  // 회원가입 응답 DTO
-  @Value
-  public static class SignUpResponse {
-    Long id;
-    String username;
-    String email;
-    AuthRole role;
-    Instant createdAt;
-  }
-
-  public SignUpResponse signUp(SignUpRequest req) {
+  public SignUpResponseDTO signUp(SignUpRequestDTO req) {
     // 1) 정규화 및 기초 검증
     final String username = normalizeUsername(req.getUsername());
     final String email = normalizeEmail(req.getEmail());
@@ -61,7 +44,7 @@ public class AuthUserService {
     user = authUserRepository.save(user);
 
     // 7) 응답 매핑
-    return new SignUpResponse(
+    return new SignUpResponseDTO(
             user.getId(),
             user.getUsername(),
             user.getEmail(),
