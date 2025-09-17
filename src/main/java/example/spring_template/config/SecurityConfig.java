@@ -1,4 +1,4 @@
-package example.spring_template.playground.config.auth;
+package example.spring_template.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,7 +17,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
                         .requestMatchers("/**").permitAll())
                 .formLogin(form -> form.loginPage("/login").permitAll());
-        ;
+
         return http.build();
     }
 
