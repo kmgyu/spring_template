@@ -13,9 +13,9 @@ import java.time.Instant;
 @NoArgsConstructor
 @Builder
 public class SignUpResponseDTO {
-  Long id;
-  String username;
-  String email;
-  AuthRole role;
-  Instant createdAt;
+  private Long id;
+  private String username;
+  private String email;
+  private AuthRole role;
+  private Instant createdAt;
 }
