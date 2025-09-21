@@ -1,11 +1,10 @@
 package example.spring_template.playground.dashboard;
 
+import example.spring_template.common.dto.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -16,31 +15,33 @@ public class DashboardController {
 
     // 단건 조회
     @GetMapping("/{id}")
-    public ResponseEntity<Post> getPost(@PathVariable Long id) {
+    public ApiResponse<Post> getPost(@PathVariable Long id) {
         Post post = dashboardService.findById(id);
-        return ResponseEntity.ok(post);
+        return ApiResponse.ok(post);
     }
 
     // 페이징 전체 조회
     @GetMapping
-    public ResponseEntity<Page<Post>> getPosts(
+    public ApiResponse<Page<Post>> getPosts(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<Post> posts = dashboardService.findAll(pageable);
-        return ResponseEntity.ok(posts);
+        return ApiResponse.ok(posts);
     }
 
     // 생성
     @PostMapping
-    public ResponseEntity<String> createPost(@RequestBody Post post) {
+    public ApiResponse<String> createPost(@RequestBody Post post) {
         boolean created = dashboardService.createPost(post);
         if (created) {
-            return ResponseEntity.ok("Post created successfully");
+            return ApiResponse.ok("Post created successfully");
         } else {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Failed to create post");
+            return ApiResponse.<String>builder()
+                    .code("ERROR_CREATE_POST")
+                    .message("Failed to create post")
+                    .timestamp(java.time.LocalDateTime.now())
+                    .build();
         }
     }
-
 }
