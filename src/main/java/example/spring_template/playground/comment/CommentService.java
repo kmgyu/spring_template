@@ -1,9 +1,9 @@
 package example.spring_template.playground.comment;
 
+import example.spring_template.auth.AuthUser;
+import example.spring_template.auth.AuthUserRepository;
 import example.spring_template.playground.dashboard.DashboardRepository;
 import example.spring_template.playground.dashboard.Post;
-import example.spring_template.playground.user.User;
-import example.spring_template.playground.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,14 +16,14 @@ public class CommentService {
 
   private final CommentRepository commentRepository;
   private final DashboardRepository postRepository;
-  private final UserRepository userRepository;
+  private final AuthUserRepository userRepository;
   private final CommentConverter commentConverter;
 
   @Transactional
   public CommentDTO.Response create(CommentDTO.CreateRequest dto) {
     Post post = postRepository.findById(dto.getPostId())
             .orElseThrow(() -> new IllegalArgumentException("post not found: " + dto.getPostId()));
-    User user = userRepository.findById(dto.getUserId())
+    AuthUser user = userRepository.findById(dto.getUserId())
             .orElseThrow(() -> new IllegalArgumentException("user not found: " + dto.getUserId()));
 
     Comment comment = commentConverter.toEntity(dto, post, user);

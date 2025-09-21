@@ -1,7 +1,7 @@
 package example.spring_template.playground.comment;
 
+import example.spring_template.auth.AuthUser;
 import example.spring_template.playground.dashboard.Post;
-import example.spring_template.playground.user.User;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.Type;
@@ -30,7 +30,7 @@ public class Comment {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false,
             foreignKey = @ForeignKey(name = "fk_comments_user"))
-    private User author;
+    private AuthUser author;
 
     @Column(nullable = false, columnDefinition = "TEXT")
     private String content;

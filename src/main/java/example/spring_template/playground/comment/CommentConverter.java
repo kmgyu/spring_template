@@ -1,13 +1,13 @@
 package example.spring_template.playground.comment;
 
+import example.spring_template.auth.AuthUser;
 import example.spring_template.playground.dashboard.Post;
-import example.spring_template.playground.user.User;
 import org.springframework.stereotype.Component;
 
 @Component
 public class CommentConverter {
 
-  public Comment toEntity(CommentDTO.CreateRequest dto, Post post, User user) {
+  public Comment toEntity(CommentDTO.CreateRequest dto, Post post, AuthUser user) {
     return Comment.builder()
             .post(post)
             .author(user)

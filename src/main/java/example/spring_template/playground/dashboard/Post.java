@@ -1,7 +1,7 @@
 package example.spring_template.playground.dashboard;
 
+import example.spring_template.auth.AuthUser;
 import example.spring_template.playground.comment.Comment;
-import example.spring_template.playground.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -31,7 +31,7 @@ public class Post {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false,
             foreignKey = @ForeignKey(name = "fk_posts_user"))
-    private User author;
+    private AuthUser author;
 
     @Column(length = 200, nullable = false)
     private String title;
